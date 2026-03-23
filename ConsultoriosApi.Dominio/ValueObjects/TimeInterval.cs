@@ -17,6 +17,8 @@ namespace ConsultoriosApi.Dominio.ValueObjects
             {
                 throw new BusinessRuleException("The start date cannot be after the end date.");
             }
+            this.Start = start;
+            this.End = end;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ConsultoriosApi.Dominio.Entities
 
         public Appointment(Guid patientId, Guid dentistId, Guid officeId, TimeInterval timeInterval)
         {
-            if (timeInterval.Start > DateTime.UtcNow)
+            if (timeInterval.Start < DateTime.UtcNow)
             {
                 throw new BusinessRuleException("The Start date cannot be earlier than the current date,");
             }

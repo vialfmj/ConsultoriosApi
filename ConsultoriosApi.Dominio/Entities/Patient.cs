@@ -18,6 +18,7 @@ namespace ConsultoriosApi.Dominio.Entities
         public Patient(string name, Email email)
         {
             if (string.IsNullOrEmpty(name)) throw new BusinessRuleException($"{nameof(name)} is required");
+            if (email is null) throw new BusinessRuleException($"{nameof(email)} is required");
 
             Id = Guid.CreateVersion7();
             Name = name;
