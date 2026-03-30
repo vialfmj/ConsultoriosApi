@@ -11,9 +11,9 @@ namespace ConsultoriosApi.Application.UseCases.Offices.Queries.GetOfficeDetail
 {
     public class GetOfficeDetailUseCase : IRequestHandler<GetOfficeDetailQuery, OfficeDetailDTO>
     {
-        private readonly IOfficeRepository repository;
+        private readonly IOfficesRepository repository;
 
-        public GetOfficeDetailUseCase(IOfficeRepository repository)
+        public GetOfficeDetailUseCase(IOfficesRepository repository)
         {
             this.repository = repository;
         }

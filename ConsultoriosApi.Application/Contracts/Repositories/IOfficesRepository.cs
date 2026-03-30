@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsultoriosApi.Application.Contracts.Repositories
 {
-    public interface IOfficeRepository : IRepository<Office>
+    public interface IOfficesRepository : IRepository<Office>
     {
     }
 }

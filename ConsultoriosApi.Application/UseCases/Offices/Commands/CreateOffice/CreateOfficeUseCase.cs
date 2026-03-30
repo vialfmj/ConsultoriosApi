@@ -13,10 +13,10 @@ namespace ConsultoriosApi.Application.UseCases.Offices.Commands.CreateOffice
 {
     public class CreateOfficeUseCase : IRequestHandler<CreateOfficeCommand, Guid>
     {
-        private readonly IOfficeRepository repository;
+        private readonly IOfficesRepository repository;
         private readonly IUnitOfWork unitOfWork;
 
-        public CreateOfficeUseCase(IOfficeRepository repository, IUnitOfWork unitOfWork) 
+        public CreateOfficeUseCase(IOfficesRepository repository, IUnitOfWork unitOfWork) 
         {
             this.repository = repository;
             this.unitOfWork = unitOfWork;
