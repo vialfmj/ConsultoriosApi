@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ConsultoriosApi.Application\ConsultoriosApi.Application.csproj" />
+    <ProjectReference Include="..\ConsultoriosApi.Dominio\ConsultoriosApi.Dominio.csproj" />
   </ItemGroup>
 
 </Project>

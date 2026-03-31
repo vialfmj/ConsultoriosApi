@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1ConsultoriosApi.Persistence.Settings
+namespace ConsultoriosApi.Persistence.Settings
 {
     public class OfficeSettings : IEntityTypeConfiguration<Office>
     {

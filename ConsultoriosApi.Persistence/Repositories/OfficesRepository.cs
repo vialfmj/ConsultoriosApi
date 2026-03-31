@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1ConsultoriosApi.Persistence.Repositories
+namespace ConsultoriosApi.Persistence.Repositories
 {
     public class OfficesRepository : Repository<Office>, IOfficesRepository
     {

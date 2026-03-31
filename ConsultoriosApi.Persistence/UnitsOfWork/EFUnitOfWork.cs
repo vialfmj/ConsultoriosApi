@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1ConsultoriosApi.Persistence.UnitsOfWork
+namespace ConsultoriosApi.Persistence.UnitsOfWork
 {
     public class EFUnitOfWork : IUnitOfWork
     {

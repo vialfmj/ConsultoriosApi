@@ -18,7 +18,7 @@ namespace ConsultorioApiTests.Application.UseCases.Offices
     public class CreateOfficeUseCaseTests
     {
 #pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required" o declararlo como un valor que acepta valores NULL.
-        private IOfficeRepository repository;
+        private IOfficesRepository repository;
         private IUnitOfWork unitOfWork;
         private CreateOfficeUseCase useCase;
 #pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required" o declararlo como un valor que acepta valores NULL.
@@ -27,7 +27,7 @@ namespace ConsultorioApiTests.Application.UseCases.Offices
         [TestInitialize]
         public void Setup()
         {
-            repository = Substitute.For<IOfficeRepository>();
+            repository = Substitute.For<IOfficesRepository>();
             unitOfWork = Substitute.For<IUnitOfWork>();
             useCase = new CreateOfficeUseCase(repository, unitOfWork);
         }
