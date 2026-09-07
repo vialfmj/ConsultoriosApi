@@ -1,0 +1,32 @@
+
+@hostAddress = http://localhost:5188/api/offices
+
+
+###
+
+GET {{hostAddress}}/019D468E-DC0E-7086-B5DC-BD1DC3122F27
+Accept: application/json
+
+###
+
+POST {{hostAddress}}/
+Content-Type: application/json
+
+{
+  "Name": "Office B"
+}
+
+###
+
+
+GET {{hostAddress}}/
+Accept: application/json
+
+###
+
+PUT {{hostAddress}}/019D468E-DC0E-7086-B5DC-BD1DC3122F27
+Content-Type: application/json
+
+{
+  "Name": "Office A - actualizado"
+}

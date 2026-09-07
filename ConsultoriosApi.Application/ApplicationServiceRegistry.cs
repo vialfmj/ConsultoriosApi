@@ -1,5 +1,13 @@
 ﻿using ConsultoriosApi.Application.UseCases.Offices.Commands.CreateOffice;
+using ConsultoriosApi.Application.UseCases.Offices.Commands.DeleteOffice;
+using ConsultoriosApi.Application.UseCases.Offices.Commands.UpdateOffice;
 using ConsultoriosApi.Application.UseCases.Offices.Queries.GetOfficeDetail;
+using ConsultoriosApi.Application.UseCases.Offices.Queries.GetOfficesList;
+using ConsultoriosApi.Application.UseCases.Patients.Commands.CreatePatient;
+using ConsultoriosApi.Application.UseCases.Patients.Commands.DeletePatient;
+using ConsultoriosApi.Application.UseCases.Patients.Commands.UpdatePatient;
+using ConsultoriosApi.Application.UseCases.Patients.Queries.GetPatientDetail;
+using ConsultoriosApi.Application.UseCases.Patients.Queries.GetPatientsList;
 using ConsultoriosApi.Application.Utils.Mediator;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,7 +24,15 @@ namespace ConsultoriosApi.Application
         {
             services.AddTransient<IMediator, SimpleMediator>();
             services.AddScoped<IRequestHandler<CreateOfficeCommand, Guid>, CreateOfficeUseCase>();
+            services.AddScoped<IRequestHandler<UpdateOfficeCommand, Guid>, UpdateOfficeUseCase>();
+            services.AddScoped<IRequestHandler<DeleteOfficeCommand, Guid>, DeleteOfficeUseCase>();
             services.AddScoped<IRequestHandler<GetOfficeDetailQuery, OfficeDetailDTO>, GetOfficeDetailUseCase>();
+            services.AddScoped<IRequestHandler<GetOfficesListQuery, List<OfficesListDTO>>, GetOfficesListUseCase>();
+            services.AddScoped<IRequestHandler<CreatePatientCommand, Guid>, CreatePatientUseCase>();
+            services.AddScoped<IRequestHandler<UpdatePatientCommand, Guid>, UpdatePatientUseCase>();
+            services.AddScoped<IRequestHandler<DeletePatientCommand, Guid>, DeletePatientUseCase>();
+            services.AddScoped<IRequestHandler<GetPatientsListQuery, PagedDTO<PatientsListDTO>>, GetPatientsListUseCase>();
+            services.AddScoped<IRequestHandler<GetPatientDetailQuery, PatientDetailDTO>, GetPatientDetailUseCase>();
             return services;
         }
 

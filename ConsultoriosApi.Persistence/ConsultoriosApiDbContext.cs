@@ -25,6 +25,8 @@ namespace ConsultoriosApi.Persistence
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ConsultoriosApiDbContext).Assembly);
         }
         public DbSet<Office> Offices { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+
     }
 
 }

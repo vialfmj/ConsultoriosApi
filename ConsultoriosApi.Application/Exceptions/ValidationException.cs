@@ -9,7 +9,7 @@ namespace ConsultoriosApi.Application.Exceptions
 {
     public class ValidationException : Exception
     {
-        List<string> ValidationErrors { get; set; } = [];
+        public List<string> ValidationErrors { get; set; } = [];
         public ValidationException(ValidationResult validationResult) 
         {
             foreach(var validationError in validationResult.Errors)

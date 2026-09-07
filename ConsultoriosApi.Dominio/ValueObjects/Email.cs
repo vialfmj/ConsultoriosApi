@@ -10,6 +10,7 @@ namespace ConsultoriosApi.Dominio.ValueObjects
     public record Email
     {
         public string Valor { get; } = null!;
+        private Email() { }
         public Email(string email)
         {
             if (string.IsNullOrEmpty(email)) throw new BusinessRuleException($"{nameof(email)} is required");

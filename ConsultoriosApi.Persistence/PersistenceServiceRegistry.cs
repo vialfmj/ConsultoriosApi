@@ -17,6 +17,7 @@ namespace ConsultoriosApi.Persistence
 
             services.AddScoped<IUnitOfWork, EFUnitOfWork>();
             services.AddScoped<IOfficesRepository, OfficesRepository>();
+            services.AddScoped<IPatientsRepository, PatientsRepository>();
 
             return services;
         } 

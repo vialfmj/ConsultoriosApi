@@ -13,6 +13,6 @@ namespace ConsultoriosApi.Application.Contracts.Repositories
         Task<T> Add(T entity);
         Task Update(T entity);
         Task Delete(T entity);
-
+        Task<int> GetTotalRecordCount();
     }
 }

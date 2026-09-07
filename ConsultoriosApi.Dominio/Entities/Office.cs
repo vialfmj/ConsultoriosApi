@@ -13,13 +13,22 @@ namespace ConsultoriosApi.Dominio.Entities
         public string Name { get; private set; } = null!;
         public Office(string name)
         {
+            ApplyBusinessRulesName(name);
+
+            Id = Guid.CreateVersion7();
+            Name = name;
+        }
+        public void UpdateName(string name)
+        {
+            ApplyBusinessRulesName(name);
+            Name = name;
+        }
+        private void ApplyBusinessRulesName(string name)
+        {
             if (string.IsNullOrEmpty(name))
             {
                 throw new BusinessRuleException($"{nameof(name)} is required.");
             }
-
-            Id = Guid.CreateVersion7();
-            Name = name;
         }
     }
 }

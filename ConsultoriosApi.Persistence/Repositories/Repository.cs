@@ -12,7 +12,7 @@ namespace ConsultoriosApi.Persistence.Repositories
     {
         private readonly ConsultoriosApiDbContext context;
 
-        public Repository(ConsultoriosApiDbContext context )
+        public Repository(ConsultoriosApiDbContext context)
         {
             this.context = context;
         }
@@ -37,6 +37,11 @@ namespace ConsultoriosApi.Persistence.Repositories
         {
             return await context.Set<T>().FindAsync(id);
 
+        }
+
+        public async Task<int> GetTotalRecordCount()
+        {
+            return await context.Set<T>().CountAsync();
         }
 
         public Task Update(T entity)
