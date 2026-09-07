@@ -1,0 +1,55 @@
+@hostAddress = http://localhost:5188/api/dentists
+
+###
+
+POST {{hostAddress}}/
+Content-Type: application/json
+
+{
+  "Name": "Dr. Franco Bianchi",
+  "Email": "franco@example.com"
+}
+
+###
+
+GET {{hostAddress}}/
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Page=2&RecordsPerPage=2
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Name=Franco
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Email=franco@example.com
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Name=Franco&Email=franco@example.com
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+
+###
+
+PUT {{hostAddress}}/01a079dd-c780-7a8e-a2bc-cdc2c0f0b615
+Content-Type: application/json
+
+{
+  "Name": "Dr. Franco Bianchi - actualizado",
+  "Email": "franco.actualizado@example.com"
+}
+
+###
+
+DELETE {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+Accept: application/json

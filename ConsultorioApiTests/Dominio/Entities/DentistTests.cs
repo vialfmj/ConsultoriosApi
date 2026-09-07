@@ -44,5 +44,48 @@ namespace ConsultorioApiTests.Dominio.Entities
             //Assert
             Assert.IsNotNull(dentist);
         }
+        [TestMethod]
+        public void UpdateName_ThrowsBusinessRuleException_WhenNameIsNullOrEmpty()
+        {
+            //Arrange
+            Dentist dentist = new Dentist("Dentist Name", new Email("email@mail.com"));
+
+            //Act & Assert
+            Assert.ThrowsException<BusinessRuleException>(() => dentist.UpdateName(null!));
+        }
+        [TestMethod]
+        public void UpdateName_UpdatesName_WhenNameIsValid()
+        {
+            //Arrange
+            Dentist dentist = new Dentist("Dentist Name", new Email("email@mail.com"));
+
+            //Act
+            dentist.UpdateName("Nuevo Nombre");
+
+            //Assert
+            Assert.AreEqual("Nuevo Nombre", dentist.Name);
+        }
+        [TestMethod]
+        public void UpdateEmail_ThrowsBusinessRuleException_WhenEmailIsNull()
+        {
+            //Arrange
+            Dentist dentist = new Dentist("Dentist Name", new Email("email@mail.com"));
+
+            //Act & Assert
+            Assert.ThrowsException<BusinessRuleException>(() => dentist.UpdateEmail(null!));
+        }
+        [TestMethod]
+        public void UpdateEmail_UpdatesEmail_WhenEmailIsValid()
+        {
+            //Arrange
+            Dentist dentist = new Dentist("Dentist Name", new Email("email@mail.com"));
+            Email nuevoEmail = new Email("nuevo@mail.com");
+
+            //Act
+            dentist.UpdateEmail(nuevoEmail);
+
+            //Assert
+            Assert.AreEqual(nuevoEmail, dentist.Email);
+        }
     }
 }

@@ -1,4 +1,9 @@
-﻿using ConsultoriosApi.Application.UseCases.Offices.Commands.CreateOffice;
+﻿using ConsultoriosApi.Application.UseCases.Dentists.Commands.CreateDentist;
+using ConsultoriosApi.Application.UseCases.Dentists.Commands.DeleteDentist;
+using ConsultoriosApi.Application.UseCases.Dentists.Commands.UpdateDentist;
+using ConsultoriosApi.Application.UseCases.Dentists.Queries.GetDentistDetail;
+using ConsultoriosApi.Application.UseCases.Dentists.Queries.GetDentistsList;
+using ConsultoriosApi.Application.UseCases.Offices.Commands.CreateOffice;
 using ConsultoriosApi.Application.UseCases.Offices.Commands.DeleteOffice;
 using ConsultoriosApi.Application.UseCases.Offices.Commands.UpdateOffice;
 using ConsultoriosApi.Application.UseCases.Offices.Queries.GetOfficeDetail;
@@ -33,6 +38,11 @@ namespace ConsultoriosApi.Application
             services.AddScoped<IRequestHandler<DeletePatientCommand, Guid>, DeletePatientUseCase>();
             services.AddScoped<IRequestHandler<GetPatientsListQuery, PagedDTO<PatientsListDTO>>, GetPatientsListUseCase>();
             services.AddScoped<IRequestHandler<GetPatientDetailQuery, PatientDetailDTO>, GetPatientDetailUseCase>();
+            services.AddScoped<IRequestHandler<CreateDentistCommand, Guid>, CreateDentistUseCase>();
+            services.AddScoped<IRequestHandler<UpdateDentistCommand, Guid>, UpdateDentistUseCase>();
+            services.AddScoped<IRequestHandler<DeleteDentistCommand, Guid>, DeleteDentistUseCase>();
+            services.AddScoped<IRequestHandler<GetDentistsListQuery, PagedDTO<DentistsListDTO>>, GetDentistsListUseCase>();
+            services.AddScoped<IRequestHandler<GetDentistDetailQuery, DentistDetailDTO>, GetDentistDetailUseCase>();
             return services;
         }
 
