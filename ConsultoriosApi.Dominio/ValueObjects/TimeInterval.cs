@@ -11,6 +11,7 @@ namespace ConsultoriosApi.Dominio.ValueObjects
     {
         public DateTime Start { get; }
         public DateTime End { get; }
+        private TimeInterval() { }
         public TimeInterval(DateTime start, DateTime end)
         {
             if (start > end)

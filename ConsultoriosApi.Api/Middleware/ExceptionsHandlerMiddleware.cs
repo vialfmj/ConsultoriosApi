@@ -1,4 +1,5 @@
 ﻿using ConsultoriosApi.Application.Exceptions;
+using ConsultoriosApi.Dominio.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -39,6 +40,10 @@ namespace ConsultoriosApi.Api.Middleware
                 case ValidationException validationException:
                     httpStatusCode = HttpStatusCode.BadRequest;
                     result = JsonSerializer.Serialize(validationException.ValidationErrors);
+                    break;
+                case BusinessRuleException businessRuleException:
+                    httpStatusCode = HttpStatusCode.BadRequest;
+                    result = JsonSerializer.Serialize(businessRuleException.Message);
                     break;
             }
             context.Response.StatusCode = (int)httpStatusCode;

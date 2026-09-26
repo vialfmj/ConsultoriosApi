@@ -1,4 +1,10 @@
-﻿using ConsultoriosApi.Application.UseCases.Dentists.Commands.CreateDentist;
+﻿using ConsultoriosApi.Application.UseCases.Appointments.Commands.CancelAppointment;
+using ConsultoriosApi.Application.UseCases.Appointments.Commands.CompleteAppointment;
+using ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppointment;
+using ConsultoriosApi.Application.UseCases.Appointments.Commands.RescheduleAppointment;
+using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentDetail;
+using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentsList;
+using ConsultoriosApi.Application.UseCases.Dentists.Commands.CreateDentist;
 using ConsultoriosApi.Application.UseCases.Dentists.Commands.DeleteDentist;
 using ConsultoriosApi.Application.UseCases.Dentists.Commands.UpdateDentist;
 using ConsultoriosApi.Application.UseCases.Dentists.Queries.GetDentistDetail;
@@ -43,6 +49,12 @@ namespace ConsultoriosApi.Application
             services.AddScoped<IRequestHandler<DeleteDentistCommand, Guid>, DeleteDentistUseCase>();
             services.AddScoped<IRequestHandler<GetDentistsListQuery, PagedDTO<DentistsListDTO>>, GetDentistsListUseCase>();
             services.AddScoped<IRequestHandler<GetDentistDetailQuery, DentistDetailDTO>, GetDentistDetailUseCase>();
+            services.AddScoped<IRequestHandler<CreateAppointmentCommand, Guid>, CreateAppointmentUseCase>();
+            services.AddScoped<IRequestHandler<RescheduleAppointmentCommand, Guid>, RescheduleAppointmentUseCase>();
+            services.AddScoped<IRequestHandler<CancelAppointmentCommand, Guid>, CancelAppointmentUseCase>();
+            services.AddScoped<IRequestHandler<CompleteAppointmentCommand, Guid>, CompleteAppointmentUseCase>();
+            services.AddScoped<IRequestHandler<GetAppointmentDetailQuery, AppointmentDetailDTO>, GetAppointmentDetailUseCase>();
+            services.AddScoped<IRequestHandler<GetAppointmentsListQuery, PagedDTO<AppointmentsListDTO>>, GetAppointmentsListUseCase>();
             return services;
         }
 

@@ -16,6 +16,7 @@ namespace ConsultoriosApi.Dominio.Entities
         public Dentist? Dentist { get; private set; }
         public Office? Office { get; private set; }
 
+        private Appointment() { }
         public Appointment(Guid patientId, Guid dentistId, Guid officeId, TimeInterval timeInterval)
         {
             if (timeInterval.Start < DateTime.UtcNow)
@@ -48,7 +49,17 @@ namespace ConsultoriosApi.Dominio.Entities
                 throw new BusinessRuleException("Only scheduled appointments can be completed.");
             }
 
-            State = DateState.Canceled;
+            State = DateState.Completed;
+        }
+
+        public void Reschedule(TimeInterval nuevoIntervalo)
+        {
+            if (State != DateState.Scheduled)
+            {
+                throw new BusinessRuleException("Only scheduled appointments can be rescheduled.");
+            }
+
+            TimeInterval = nuevoIntervalo;
         }
 
 

@@ -69,7 +69,7 @@ namespace ConsultorioApiTests.Dominio.Entities
             // Act
             appointment.Complete();
             // Assert
-            Assert.AreEqual(DateState.Canceled, appointment.State);
+            Assert.AreEqual(DateState.Completed, appointment.State);
         }
          [TestMethod]
          public void Complete_ThrowsBusinessException_WhenAppointmentIsNotScheduled()
@@ -79,6 +79,27 @@ namespace ConsultorioApiTests.Dominio.Entities
             appointment.Complete();
             // Act & Assert
             Assert.ThrowsException<BusinessRuleException>(() => appointment.Complete());
+        }
+        [TestMethod]
+        public void Reschedule_ChangesTimeInterval_WhenAppointmentIsScheduled()
+        {
+            // Arrange
+            var appointment = new Appointment(_patientId, _dentistId, _officeId, _timeInterval);
+            var nuevoIntervalo = new TimeInterval(DateTime.UtcNow.AddDays(3), DateTime.UtcNow.AddDays(4));
+            // Act
+            appointment.Reschedule(nuevoIntervalo);
+            // Assert
+            Assert.AreEqual(nuevoIntervalo, appointment.TimeInterval);
+        }
+        [TestMethod]
+        public void Reschedule_ThrowsBusinessException_WhenAppointmentIsNotScheduled()
+        {
+            // Arrange
+            var appointment = new Appointment(_patientId, _dentistId, _officeId, _timeInterval);
+            appointment.Cancel();
+            var nuevoIntervalo = new TimeInterval(DateTime.UtcNow.AddDays(3), DateTime.UtcNow.AddDays(4));
+            // Act & Assert
+            Assert.ThrowsException<BusinessRuleException>(() => appointment.Reschedule(nuevoIntervalo));
         }
     }
 }

@@ -27,6 +27,7 @@ namespace ConsultoriosApi.Persistence
         public DbSet<Office> Offices { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Dentist> Dentists { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
     }
 
