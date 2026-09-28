@@ -6,8 +6,8 @@ POST {{hostAddress}}/
 Content-Type: application/json
 
 {
-  "Name": "Anto Guarnieri",
-  "Email": "anto@example.com"
+  "Name": "Franco Vial",
+  "Email": "darkslayer1708@gmail.com"
 }
 
 ###

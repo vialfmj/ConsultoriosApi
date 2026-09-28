@@ -1,12 +1,17 @@
 @hostAddress = http://localhost:5188/api/appointments
 
+# IMPORTANTE: Start/End/From/To son DateTimeOffset. Poné la hora local de Argentina
+# con su offset (ej: "2026-09-28T13:00:00-03:00") y la API la convierte sola a UTC.
+
 ### Reemplazar por ids reales de un paciente, un dentista y un consultorio existentes
-@patientId = 01a02a4c-ca03-7644-afb2-e3de12a57ade
+@patientId = 01a0e85f-c245-7731-8b40-1fb3c63397bd
 @dentistId = 01a079dd-c780-7a8e-a2bc-cdc2c0f0b615
-@officeId = 01a02a4c-ca03-7644-afb2-e3de12a57ade
+@officeId = 01a0e85e-9593-735e-bae3-855776f1f4b5
 
-###
+### Reemplazar por el id que devuelve el POST de más abajo (header Location)
+@appointmentId = 01a0e8b0-d495-7acd-aedc-6065cc0dc841
 
+# Post: crea un turno nuevo
 POST {{hostAddress}}/
 Content-Type: application/json
 
@@ -14,13 +19,13 @@ Content-Type: application/json
   "PatientId": "{{patientId}}",
   "DentistId": "{{dentistId}}",
   "OfficeId": "{{officeId}}",
-  "Start": "2026-10-01T10:00:00",
-  "End": "2026-10-01T10:30:00"
+  "Start": "2026-09-28T13:30:00-03:00",
+  "End": "2026-09-28T13:45:00-03:00"
 }
 
 ###
 
-# Dispara BusinessRuleException (400): mismo dentista con horario superpuesto al turno anterior
+# Post: dispara BusinessRuleException (400): mismo dentista con horario superpuesto al turno anterior
 POST {{hostAddress}}/
 Content-Type: application/json
 
@@ -28,55 +33,66 @@ Content-Type: application/json
   "PatientId": "{{patientId}}",
   "DentistId": "{{dentistId}}",
   "OfficeId": "{{officeId}}",
-  "Start": "2026-10-01T10:15:00",
-  "End": "2026-10-01T10:45:00"
+  "Start": "2026-09-28T13:35:00-03:00",
+  "End": "2026-09-28T14:00:00-03:00"
 }
 
 ###
 
+# Get: lista de turnos, sin filtros
 GET {{hostAddress}}/
 Accept: application/json
 
 ###
 
+# Get: lista de turnos paginada
 GET {{hostAddress}}/?Page=1&RecordsPerPage=10
 Accept: application/json
 
 ###
 
+# Get: lista de turnos filtrada por paciente
 GET {{hostAddress}}/?PatientId={{patientId}}
 Accept: application/json
 
 ###
 
+# Get: lista de turnos filtrada por dentista y estado (1 = Scheduled)
 GET {{hostAddress}}/?DentistId={{dentistId}}&State=1
 Accept: application/json
 
 ###
 
-GET {{hostAddress}}/?OfficeId={{officeId}}&From=2026-10-01T00:00:00&To=2026-10-02T00:00:00
+# Get: lista de turnos filtrada por consultorio y rango de fechas
+GET {{hostAddress}}/?OfficeId={{officeId}}&From=2026-10-01T00:00:00-03:00&To=2026-10-02T00:00:00-03:00
 Accept: application/json
 
 ###
 
-GET {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+# Get: detalle de un turno puntual
+GET {{hostAddress}}/{{appointmentId}}
 
 ###
 
-PUT {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+# Put: reprograma un turno existente
+PUT {{hostAddress}}/{{appointmentId}}
 Content-Type: application/json
 
 {
-  "Start": "2026-10-01T11:00:00",
-  "End": "2026-10-01T11:30:00"
+  "Start": "2026-10-01T11:00:00-03:00",
+  "End": "2026-10-01T11:30:00-03:00"
 }
 
 ###
 
-POST {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade/cancel
+# Post: cancela un turno.
+# Nota: cancel y complete solo aplican a turnos en estado Scheduled.
+# Corré uno u otro, no ambos, sobre el mismo turno (el segundo va a tirar BusinessRuleException).
+POST {{hostAddress}}/{{appointmentId}}/cancel
 Accept: application/json
 
 ###
 
-POST {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade/complete
+# Post: marca un turno como completado (ver nota de arriba)
+POST {{hostAddress}}/{{appointmentId}}/complete
 Accept: application/json

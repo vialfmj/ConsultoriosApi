@@ -1,5 +1,6 @@
 using ConsultoriosApi.Api.Middleware;
 using ConsultoriosApi.Application;
+using ConsultoriosApi.Infrastructure;
 using ConsultoriosApi.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices();
+builder.Services.AddInfrastructureServices();
 
 
 

@@ -30,8 +30,8 @@ namespace ConsultoriosApi.Api.Controllers
                 PatientId = createAppointmentDto.PatientId,
                 DentistId = createAppointmentDto.DentistId,
                 OfficeId = createAppointmentDto.OfficeId,
-                Start = createAppointmentDto.Start,
-                End = createAppointmentDto.End
+                Start = createAppointmentDto.Start.UtcDateTime,
+                End = createAppointmentDto.End.UtcDateTime
             };
             var id = await mediator.Send(command);
             return CreatedAtAction(nameof(GetById), new { id }, null);
@@ -43,8 +43,8 @@ namespace ConsultoriosApi.Api.Controllers
             var command = new RescheduleAppointmentCommand
             {
                 Id = id,
-                Start = rescheduleAppointmentDto.Start,
-                End = rescheduleAppointmentDto.End
+                Start = rescheduleAppointmentDto.Start.UtcDateTime,
+                End = rescheduleAppointmentDto.End.UtcDateTime
             };
             await mediator.Send(command);
             return Ok();

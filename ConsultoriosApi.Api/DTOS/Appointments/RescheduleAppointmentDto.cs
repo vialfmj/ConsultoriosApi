@@ -4,10 +4,12 @@ namespace ConsultoriosApi.Api.DTOS.Appointments
 {
     public class RescheduleAppointmentDto
     {
+        /// <summary>Incluir el offset de la zona horaria local (ej: -03:00).</summary>
         [Required]
-        public required DateTime Start { get; set; }
+        public required DateTimeOffset Start { get; set; }
 
+        /// <summary>Incluir el offset de la zona horaria local (ej: -03:00).</summary>
         [Required]
-        public required DateTime End { get; set; }
+        public required DateTimeOffset End { get; set; }
     }
 }
