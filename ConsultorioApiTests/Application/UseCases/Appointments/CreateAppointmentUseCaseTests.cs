@@ -7,6 +7,7 @@ using ConsultoriosApi.Dominio.ValueObjects;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ConsultorioApiTests.Application.UseCases.Appointments
@@ -17,6 +18,7 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
 #pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required" o declararlo como un valor que acepta valores NULL.
         private IAppointmentsRepository repository;
         private IUnitOfWork unitOfWork;
+        private INotificationService notificationService;
         private CreateAppointmentUseCase useCase;
 #pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de agregar el modificador "required" o declararlo como un valor que acepta valores NULL.
 
@@ -25,7 +27,8 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
         {
             repository = Substitute.For<IAppointmentsRepository>();
             unitOfWork = Substitute.For<IUnitOfWork>();
-            useCase = new CreateAppointmentUseCase(repository, unitOfWork);
+            notificationService = Substitute.For<INotificationService>();
+            useCase = new CreateAppointmentUseCase(repository, unitOfWork, notificationService);
         }
 
         [TestMethod]
@@ -40,8 +43,16 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
                 Start = DateTime.UtcNow.AddDays(1),
                 End = DateTime.UtcNow.AddDays(1).AddHours(1)
             };
+            var appointmentConDetalle = new Appointment(command.PatientId, command.DentistId, command.OfficeId,
+                new TimeInterval(command.Start, command.End));
+            SetNavigationProperties(appointmentConDetalle,
+                new Patient("Paciente A", new Email("paciente@a.com")),
+                new Dentist("Dentista A", new Email("dentista@a.com")),
+                new Office("Consultorio A"));
+
             repository.HasOverlap(command.DentistId, command.OfficeId, Arg.Any<TimeInterval>()).Returns(false);
-            repository.Add(Arg.Any<Appointment>()).Returns(callInfo => callInfo.Arg<Appointment>());
+            repository.Add(Arg.Any<Appointment>()).Returns(appointmentConDetalle);
+            repository.GetById(Arg.Any<Guid>()).Returns(appointmentConDetalle);
 
             // Act
             var result = await useCase.Handle(command);
@@ -50,6 +61,14 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
             await repository.Received(1).Add(Arg.Any<Appointment>());
             await unitOfWork.Received(1).Commit();
             Assert.AreNotEqual(Guid.Empty, result);
+        }
+
+        // GetById de EF trae Patient/Dentist/Office via Include; aca los seteamos a mano porque tienen setter privado.
+        private static void SetNavigationProperties(Appointment appointment, Patient patient, Dentist dentist, Office office)
+        {
+            typeof(Appointment).GetProperty(nameof(Appointment.Patient))!.SetValue(appointment, patient);
+            typeof(Appointment).GetProperty(nameof(Appointment.Dentist))!.SetValue(appointment, dentist);
+            typeof(Appointment).GetProperty(nameof(Appointment.Office))!.SetValue(appointment, office);
         }
 
         [TestMethod]

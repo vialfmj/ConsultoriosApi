@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsultoriosApi.Persistence
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsultoriosApi.Api", "ConsultoriosApi.Api\ConsultoriosApi.Api.csproj", "{32350AF6-17A2-4745-8C8C-24736748E45C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsultoriosApi.Infrastructure", "ConsultoriosApi.Infrastructure\ConsultoriosApi.Infrastructure.csproj", "{CF708B35-9381-4166-B226-7F2870821234}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{32350AF6-17A2-4745-8C8C-24736748E45C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32350AF6-17A2-4745-8C8C-24736748E45C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32350AF6-17A2-4745-8C8C-24736748E45C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF708B35-9381-4166-B226-7F2870821234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF708B35-9381-4166-B226-7F2870821234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF708B35-9381-4166-B226-7F2870821234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF708B35-9381-4166-B226-7F2870821234}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

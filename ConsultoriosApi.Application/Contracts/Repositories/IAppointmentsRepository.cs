@@ -1,9 +1,6 @@
-using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentsList;
+using ConsultoriosApi.Application.Contracts.Repositories.Models;
 using ConsultoriosApi.Dominio.Entities;
 using ConsultoriosApi.Dominio.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ConsultoriosApi.Application.Contracts.Repositories
 {

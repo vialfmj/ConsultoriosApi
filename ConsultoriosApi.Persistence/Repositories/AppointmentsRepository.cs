@@ -1,5 +1,5 @@
 using ConsultoriosApi.Application.Contracts.Repositories;
-using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentsList;
+using ConsultoriosApi.Application.Contracts.Repositories.Models;
 using ConsultoriosApi.Dominio.Entities;
 using ConsultoriosApi.Dominio.Enums;
 using ConsultoriosApi.Dominio.ValueObjects;
@@ -19,9 +19,22 @@ namespace ConsultoriosApi.Persistence.Repositories
             this.context = context;
         }
 
+        public new async Task<Appointment?> GetById(Guid id)
+        {
+            return await context.Appointments
+                .Include(a => a.Patient)
+                .Include(a => a.Dentist)
+                .Include(a => a.Office)
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
         public async Task<IEnumerable<Appointment>> GetFiltered(AppointmentsFilterDTO filter)
         {
-            var queryable = context.Appointments.AsQueryable();
+            var queryable = context.Appointments
+                .Include(a => a.Patient)
+                .Include(a => a.Dentist)
+                .Include(a => a.Office)
+                .AsQueryable();
 
             if (filter.PatientId.HasValue)
             {
@@ -41,11 +54,13 @@ namespace ConsultoriosApi.Persistence.Repositories
             }
             if (filter.From.HasValue)
             {
-                queryable = queryable.Where(a => a.TimeInterval.Start >= filter.From.Value);
+                var from = filter.From.Value.UtcDateTime;
+                queryable = queryable.Where(a => a.TimeInterval.Start >= from);
             }
             if (filter.To.HasValue)
             {
-                queryable = queryable.Where(a => a.TimeInterval.Start <= filter.To.Value);
+                var to = filter.To.Value.UtcDateTime;
+                queryable = queryable.Where(a => a.TimeInterval.Start <= to);
             }
 
             return await queryable.OrderBy(a => a.TimeInterval.Start)

@@ -8,7 +8,9 @@ namespace ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppoi
         public Guid PatientId { get; set; }
         public Guid DentistId { get; set; }
         public Guid OfficeId { get; set; }
+        /// <summary>Se interpreta en UTC.</summary>
         public DateTime Start { get; set; }
+        /// <summary>Se interpreta en UTC.</summary>
         public DateTime End { get; set; }
     }
 }

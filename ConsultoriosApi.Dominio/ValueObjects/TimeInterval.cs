@@ -7,6 +7,7 @@ using ConsultoriosApi.Dominio.Exceptions;
 
 namespace ConsultoriosApi.Dominio.ValueObjects
 {
+    /// <summary>Start y End se asumen siempre en UTC.</summary>
     public record TimeInterval
     {
         public DateTime Start { get; }

@@ -13,11 +13,14 @@ namespace ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppoi
     {
         private readonly IAppointmentsRepository repository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly INotificationService notificationService;
 
-        public CreateAppointmentUseCase(IAppointmentsRepository repository, IUnitOfWork unitOfWork)
+        public CreateAppointmentUseCase(IAppointmentsRepository repository, IUnitOfWork unitOfWork, 
+        INotificationService notificationService)
         {
             this.repository = repository;
             this.unitOfWork = unitOfWork;
+            this.notificationService = notificationService;
         }
         public async Task<Guid> Handle(CreateAppointmentCommand command)
         {
@@ -29,17 +32,24 @@ namespace ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppoi
             }
 
             var appointment = new Appointment(command.PatientId, command.DentistId, command.OfficeId, timeInterval);
+            Guid? id;
             try
             {
                 var result = await repository.Add(appointment);
                 await unitOfWork.Commit();
-                return result.Id;
+                id = result.Id;
             }
             catch (Exception)
             {
                 await unitOfWork.RollBack();
                 throw;
             }
+            var appointmentDb = await repository.GetById(id.Value);
+            var confirmationAppointmentDTO = appointmentDb!.ToDto();
+
+            await notificationService.SendAppointmentConfirmationAsync(confirmationAppointmentDTO);
+
+            return id.Value;
         }
     }
 }

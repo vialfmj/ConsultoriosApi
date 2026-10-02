@@ -2,6 +2,7 @@
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.CompleteAppointment;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppointment;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.RescheduleAppointment;
+using ConsultoriosApi.Application.UseCases.Appointments.Commands.SendAppointmentReminder;
 using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentDetail;
 using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentsList;
 using ConsultoriosApi.Application.UseCases.Dentists.Commands.CreateDentist;
@@ -55,6 +56,7 @@ namespace ConsultoriosApi.Application
             services.AddScoped<IRequestHandler<CompleteAppointmentCommand, Guid>, CompleteAppointmentUseCase>();
             services.AddScoped<IRequestHandler<GetAppointmentDetailQuery, AppointmentDetailDTO>, GetAppointmentDetailUseCase>();
             services.AddScoped<IRequestHandler<GetAppointmentsListQuery, PagedDTO<AppointmentsListDTO>>, GetAppointmentsListUseCase>();
+            services.AddScoped<IRequestHandler<SendAppointmentReminderCommand>, SendAppointmentReminderUseCase>();
             return services;
         }
 

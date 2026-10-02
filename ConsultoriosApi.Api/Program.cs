@@ -13,7 +13,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
 
-
+builder.Services.AddHostedService<AppointmentReminderJob>();
 
 var app = builder.Build();
 
