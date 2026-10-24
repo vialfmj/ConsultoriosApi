@@ -49,3 +49,24 @@ ScaffoldingReadMe.txt
 *.log
 *.binlog
 *.sin
+
+## Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+## Environment files
+.env.*
+!.env.example
+
+## OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+*.suo
