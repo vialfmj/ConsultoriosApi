@@ -37,6 +37,9 @@ namespace ConsultoriosApi.Api.Middleware
                 case NotFoundException:
                     httpStatusCode = HttpStatusCode.NotFound;
                     break;
+                case UnauthorizedException:
+                    httpStatusCode = HttpStatusCode.Unauthorized;
+                    break;
                 case ValidationException validationException:
                     httpStatusCode = HttpStatusCode.BadRequest;
                     result = JsonSerializer.Serialize(validationException.ValidationErrors);

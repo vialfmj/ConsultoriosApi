@@ -1,8 +1,10 @@
-@hostAddress = http://localhost:5188/api/patients
+@hostAddress = https://localhost:7054/api/patients
+@token = pegar-aca-el-token-de-Auth.http
 
 ###
 
 POST {{hostAddress}}/
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -13,35 +15,42 @@ Content-Type: application/json
 ###
 
 GET {{hostAddress}}/
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 GET {{hostAddress}}/?Page=2&RecordsPerPage=2
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 GET {{hostAddress}}/?Name=Franco
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 GET {{hostAddress}}/?Email=anto@example.com
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 GET {{hostAddress}}/?Name=Anto&Email=anto@example.com
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 GET {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+Authorization: Bearer {{token}}
 
 ###
 
 PUT {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -52,4 +61,5 @@ Content-Type: application/json
 ###
 
 DELETE {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+Authorization: Bearer {{token}}
 Accept: application/json

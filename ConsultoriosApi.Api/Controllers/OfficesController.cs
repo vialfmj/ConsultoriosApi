@@ -5,11 +5,13 @@ using ConsultoriosApi.Application.UseCases.Offices.Commands.UpdateOffice;
 using ConsultoriosApi.Application.UseCases.Offices.Queries.GetOfficeDetail;
 using ConsultoriosApi.Application.UseCases.Offices.Queries.GetOfficesList;
 using ConsultoriosApi.Application.Utils.Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsultoriosApi.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/offices")]
     public class OfficesController : ControllerBase
     {

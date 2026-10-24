@@ -1,8 +1,57 @@
-@hostAddress = http://localhost:5188/api/dentists
+@hostAddress = https://localhost:7054/api/dentists
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWExNjU2ZS0wMDZhLTc3NjItYjRjMS0wYzczYTU5ODk1NjAiLCJlbWFpbCI6ImFkbWluQGNvbnN1bHRvcmlvLmNvbSIsImp0aSI6ImVmZmViMzE0LTYxMTctNDkwMy04NWU1LTBmYmNhY2NkNDc3ZiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzkyNzA4MjkxLCJpc3MiOiJDb25zdWx0b3Jpb3NBcGkiLCJhdWQiOiJDb25zdWx0b3Jpb3NBcGlDbGllbnRzIn0.z8g6MJinuJp6Z4s2ngIqRha_WdfbgpMwPqGREiU83XE
+
 
 ###
 
 POST {{hostAddress}}/
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "Name": "Pepe Argento",
+  "Email": "pepe@example.com"
+}
+
+###
+
+GET {{hostAddress}}/
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Page=1&RecordsPerPage=2
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Name=Pepe
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Email=franco.actualizado@example.com
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/?Name=Franco&Email=franco@example.com
+Authorization: Bearer {{token}}
+Accept: application/json
+
+###
+
+GET {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+Authorization: Bearer {{token}}
+
+###
+
+PUT {{hostAddress}}/01a079dd-c780-7a8e-a2bc-cdc2c0f0b615
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -12,44 +61,6 @@ Content-Type: application/json
 
 ###
 
-GET {{hostAddress}}/
-Accept: application/json
-
-###
-
-GET {{hostAddress}}/?Page=2&RecordsPerPage=2
-Accept: application/json
-
-###
-
-GET {{hostAddress}}/?Name=Franco
-Accept: application/json
-
-###
-
-GET {{hostAddress}}/?Email=franco@example.com
-Accept: application/json
-
-###
-
-GET {{hostAddress}}/?Name=Franco&Email=franco@example.com
-Accept: application/json
-
-###
-
-GET {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
-
-###
-
-PUT {{hostAddress}}/01a079dd-c780-7a8e-a2bc-cdc2c0f0b615
-Content-Type: application/json
-
-{
-  "Name": "Dr. Franco Bianchi - actualizado",
-  "Email": "franco.actualizado@example.com"
-}
-
-###
-
-DELETE {{hostAddress}}/01a02a4c-ca03-7644-afb2-e3de12a57ade
+DELETE {{hostAddress}}/01a16589-a773-730a-af0c-8e72fc9df345
+Authorization: Bearer {{token}}
 Accept: application/json

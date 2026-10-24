@@ -1,4 +1,5 @@
-@hostAddress = http://localhost:5188/api/appointments
+@hostAddress = https://localhost:7054/api/appointments
+@token = pegar-aca-el-token-de-Auth.http
 
 # IMPORTANTE: Start/End/From/To son DateTimeOffset. Poné la hora local de Argentina
 # con su offset (ej: "2026-09-28T13:00:00-03:00") y la API la convierte sola a UTC.
@@ -13,6 +14,7 @@
 
 # Post: crea un turno nuevo
 POST {{hostAddress}}/
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -27,6 +29,7 @@ Content-Type: application/json
 
 # Post: dispara BusinessRuleException (400): mismo dentista con horario superpuesto al turno anterior
 POST {{hostAddress}}/
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -41,41 +44,48 @@ Content-Type: application/json
 
 # Get: lista de turnos, sin filtros
 GET {{hostAddress}}/
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 # Get: lista de turnos paginada
 GET {{hostAddress}}/?Page=1&RecordsPerPage=10
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 # Get: lista de turnos filtrada por paciente
 GET {{hostAddress}}/?PatientId={{patientId}}
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 # Get: lista de turnos filtrada por dentista y estado (1 = Scheduled)
 GET {{hostAddress}}/?DentistId={{dentistId}}&State=1
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 # Get: lista de turnos filtrada por consultorio y rango de fechas
 GET {{hostAddress}}/?OfficeId={{officeId}}&From=2026-10-01T00:00:00-03:00&To=2026-10-02T00:00:00-03:00
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 # Get: detalle de un turno puntual
 GET {{hostAddress}}/{{appointmentId}}
+Authorization: Bearer {{token}}
 
 ###
 
 # Put: reprograma un turno existente
 PUT {{hostAddress}}/{{appointmentId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -89,10 +99,12 @@ Content-Type: application/json
 # Nota: cancel y complete solo aplican a turnos en estado Scheduled.
 # Corré uno u otro, no ambos, sobre el mismo turno (el segundo va a tirar BusinessRuleException).
 POST {{hostAddress}}/{{appointmentId}}/cancel
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 # Post: marca un turno como completado (ver nota de arriba)
 POST {{hostAddress}}/{{appointmentId}}/complete
+Authorization: Bearer {{token}}
 Accept: application/json

@@ -6,11 +6,13 @@ using ConsultoriosApi.Application.UseCases.Patients.Commands.UpdatePatient;
 using ConsultoriosApi.Application.UseCases.Patients.Queries.GetPatientDetail;
 using ConsultoriosApi.Application.UseCases.Patients.Queries.GetPatientsList;
 using ConsultoriosApi.Application.Utils.Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsultoriosApi.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/patients")]
     public class PatientsController : ControllerBase
     {

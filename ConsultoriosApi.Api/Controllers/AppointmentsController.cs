@@ -7,11 +7,13 @@ using ConsultoriosApi.Application.UseCases.Appointments.Commands.RescheduleAppoi
 using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentDetail;
 using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentsList;
 using ConsultoriosApi.Application.Utils.Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsultoriosApi.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/appointments")]
     public class AppointmentsController : ControllerBase
     {

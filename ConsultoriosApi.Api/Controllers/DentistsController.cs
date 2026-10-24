@@ -6,11 +6,13 @@ using ConsultoriosApi.Application.UseCases.Dentists.Commands.UpdateDentist;
 using ConsultoriosApi.Application.UseCases.Dentists.Queries.GetDentistDetail;
 using ConsultoriosApi.Application.UseCases.Dentists.Queries.GetDentistsList;
 using ConsultoriosApi.Application.Utils.Mediator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ConsultoriosApi.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/dentists")]
     public class DentistsController : ControllerBase
     {

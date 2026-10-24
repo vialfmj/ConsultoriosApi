@@ -1,3 +1,4 @@
+using ConsultoriosApi.Application.Contracts.Notifications;
 using ConsultoriosApi.Application.Contracts.Persistence;
 using ConsultoriosApi.Application.Contracts.Repositories;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppointment;
@@ -61,6 +62,7 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
             await repository.Received(1).Add(Arg.Any<Appointment>());
             await unitOfWork.Received(1).Commit();
             Assert.AreNotEqual(Guid.Empty, result);
+            await notificationService.Received(1).SendAppointmentConfirmationAsync(Arg.Any<AppointmentConfirmationDTO>());
         }
 
         // GetById de EF trae Patient/Dentist/Office via Include; aca los seteamos a mano porque tienen setter privado.
@@ -90,6 +92,7 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
 
             await repository.DidNotReceive().Add(Arg.Any<Appointment>());
             await unitOfWork.DidNotReceive().Commit();
+            await notificationService.DidNotReceive().SendAppointmentConfirmationAsync(Arg.Any<AppointmentConfirmationDTO>());
         }
 
         [TestMethod]
@@ -111,6 +114,7 @@ namespace ConsultorioApiTests.Application.UseCases.Appointments
             await Assert.ThrowsExceptionAsync<Exception>(async () => await useCase.Handle(command));
 
             await unitOfWork.Received(1).RollBack();
+            await notificationService.DidNotReceive().SendAppointmentConfirmationAsync(Arg.Any<AppointmentConfirmationDTO>());
         }
     }
 }

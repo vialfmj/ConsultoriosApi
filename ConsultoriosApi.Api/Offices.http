@@ -1,15 +1,17 @@
 
-@hostAddress = http://localhost:5188/api/offices
+@hostAddress = https://localhost:7054/api/offices
 
 
 ###
 
 GET {{hostAddress}}/019D468E-DC0E-7086-B5DC-BD1DC3122F27
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 POST {{hostAddress}}/
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -20,11 +22,13 @@ Content-Type: application/json
 
 
 GET {{hostAddress}}/
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
 PUT {{hostAddress}}/019D468E-DC0E-7086-B5DC-BD1DC3122F27
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

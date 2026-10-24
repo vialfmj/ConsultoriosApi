@@ -1,10 +1,13 @@
-﻿using ConsultoriosApi.Application.UseCases.Appointments.Commands.CancelAppointment;
+using ConsultoriosApi.Application.UseCases.Appointments.Commands.CancelAppointment;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.CompleteAppointment;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.CreateAppointment;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.RescheduleAppointment;
 using ConsultoriosApi.Application.UseCases.Appointments.Commands.SendAppointmentReminder;
 using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentDetail;
 using ConsultoriosApi.Application.UseCases.Appointments.Queries.GetAppointmentsList;
+using ConsultoriosApi.Application.Contracts.Authentication;
+using ConsultoriosApi.Application.UseCases.Auth.Commands.Login;
+using ConsultoriosApi.Application.UseCases.Auth.Commands.RegisterUser;
 using ConsultoriosApi.Application.UseCases.Dentists.Commands.CreateDentist;
 using ConsultoriosApi.Application.UseCases.Dentists.Commands.DeleteDentist;
 using ConsultoriosApi.Application.UseCases.Dentists.Commands.UpdateDentist;
@@ -21,6 +24,7 @@ using ConsultoriosApi.Application.UseCases.Patients.Commands.UpdatePatient;
 using ConsultoriosApi.Application.UseCases.Patients.Queries.GetPatientDetail;
 using ConsultoriosApi.Application.UseCases.Patients.Queries.GetPatientsList;
 using ConsultoriosApi.Application.Utils.Mediator;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -35,6 +39,7 @@ namespace ConsultoriosApi.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IMediator, SimpleMediator>();
+            services.AddValidatorsFromAssembly(typeof(ApplicationServiceRegistry).Assembly);
             services.AddScoped<IRequestHandler<CreateOfficeCommand, Guid>, CreateOfficeUseCase>();
             services.AddScoped<IRequestHandler<UpdateOfficeCommand, Guid>, UpdateOfficeUseCase>();
             services.AddScoped<IRequestHandler<DeleteOfficeCommand, Guid>, DeleteOfficeUseCase>();
@@ -57,6 +62,8 @@ namespace ConsultoriosApi.Application
             services.AddScoped<IRequestHandler<GetAppointmentDetailQuery, AppointmentDetailDTO>, GetAppointmentDetailUseCase>();
             services.AddScoped<IRequestHandler<GetAppointmentsListQuery, PagedDTO<AppointmentsListDTO>>, GetAppointmentsListUseCase>();
             services.AddScoped<IRequestHandler<SendAppointmentReminderCommand>, SendAppointmentReminderUseCase>();
+            services.AddScoped<IRequestHandler<LoginCommand, AuthResultDTO>, LoginUseCase>();
+            services.AddScoped<IRequestHandler<RegisterUserCommand, Guid>, RegisterUserUseCase>();
             return services;
         }
 

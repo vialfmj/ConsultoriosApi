@@ -1,0 +1,32 @@
+@hostAddress = https://localhost:7054/api/auth
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMWExNjU3ZS01NjE2LTcxMTctYTFlYi03NDJjOWU2MGNlOGYiLCJlbWFpbCI6ImRlbnRpc3RhQGNvbnN1bHRvcmlvLmNvbSIsImp0aSI6IjIzZjMzMzE2LTE0ZDYtNDhhYS05YmQ0LWUyY2M3MDUwOTRmMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkRlbnRpc3QiLCJleHAiOjE3OTI3MDg2NDMsImlzcyI6IkNvbnN1bHRvcmlvc0FwaSIsImF1ZCI6IkNvbnN1bHRvcmlvc0FwaUNsaWVudHMifQ.llQPHhddRtRM7AEwuqT_CD5xedfQaQMpfEXozvMfnys
+### Login (devuelve { token, expiresAt })
+
+POST {{hostAddress}}/login
+Content-Type: application/json
+
+{
+  "Email": "admin@consultorio.com",
+  "Password": "Admin1234#"
+}
+
+###
+POST {{hostAddress}}/login
+Content-Type: application/json
+
+{
+  "Email": "dentista@consultorio.com",
+  "Password": "UnaPassword123#"
+}
+
+### Registrar usuario (solo Admin). Role: Admin | Dentist
+
+POST {{hostAddress}}/register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "Email": "dentista1@consultorio.com",
+  "Password": "Pass1234#",
+  "Role": "Root"
+}
